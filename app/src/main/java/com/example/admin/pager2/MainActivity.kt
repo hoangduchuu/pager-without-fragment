@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     var cateList = ArrayList<String>()
-    var stickerPathList = ArrayList<String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,34 +15,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val viewPager = view_pager
 
-        val data = getData()
+        val data = getCategories()
 
         val adapter = CustomPagerAdapter(this, data)
+        viewPager.offscreenPageLimit = 0;
+
         viewPager.adapter = adapter
-        tabs.addTab(tabs.newTab().setText("111"))
-        tabs.addTab(tabs.newTab().setText("222"))
-        tabs.addTab(tabs.newTab().setText("333"))
-        tabs.addTab(tabs.newTab().setText("444"))
-        tabs.addTab(tabs.newTab().setText("555"))
+
+        for (index in data.categoryList.indices) {
+            tabs.addTab(tabs.newTab().setText(data.categoryList[index]))
+
+        }
         tabs.setupWithViewPager(viewPager)
     }
 
-    private fun getData(): StickerData {
-        cateList.add("cate1")
-        cateList.add("cate2")
-        cateList.add("cate3")
-        cateList.add("cate4")
-        cateList.add("cate5")
+    private fun getCategories(): StickerData {
+        cateList.add("biscuit")
+        cateList.add("doraemon")
+        cateList.add("helloKitty")
+        cateList.add("meep")
+        cateList.add("pikachu")
+        cateList.add("pusheen")
+        cateList.add("snoopyAtWork")
+        cateList.add("xMyMelody")
 
-
-        stickerPathList.add("path1")
-        stickerPathList.add("path2")
-        stickerPathList.add("path3")
-        stickerPathList.add("path4")
-        stickerPathList.add("path5")
-        stickerPathList.add("path6")
-
-        return StickerData(cateList, stickerPathList)
+        return StickerData(cateList)
     }
 
 }
