@@ -5,15 +5,41 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import com.example.admin.pager2.stickerview.StickerData
 
-class CustomPagerAdapter(private val mContext: Context) : PagerAdapter() {
+class CustomPagerAdapter(private val mContext: Context, var data: StickerData) : PagerAdapter() {
+
+    lateinit var cloneView2: ImageView
 
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
-        val customPagerEnum = CustomPagerEnum.values()[position]
-        val inflater = LayoutInflater.from(mContext)
-        val layout = inflater.inflate(customPagerEnum.layoutResId, collection, false) as ViewGroup
-        collection.addView(layout)
-        return layout
+
+        cloneView2 = ImageView(mContext)
+        cloneView2.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT) as ViewGroup.LayoutParams?
+        cloneView2.setImageResource(R.mipmap.ic_launcher)
+
+        if (position == 0) {
+            cloneView2.setImageResource(R.drawable.e3)
+        }
+        if (position == 1) {
+            cloneView2.setImageResource(R.drawable.e4)
+        }
+        if (position == 2) {
+            cloneView2.setImageResource(R.drawable.e6)
+        }
+        if (position == 3) {
+            cloneView2.setImageResource(R.drawable.e6)
+        }
+        if (position == 4) {
+            cloneView2.setImageResource(R.mipmap.ic_launcher)
+        }
+
+//        val customPagerEnum = CustomPagerEnum.values()[position]
+//        val inflater = LayoutInflater.from(mContext)
+//        val layout = inflater.inflate(customPagerEnum.layoutResId, collection, false) as ViewGroup
+        collection.addView(cloneView2)
+        return cloneView2
     }
 
     override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
@@ -21,7 +47,7 @@ class CustomPagerAdapter(private val mContext: Context) : PagerAdapter() {
     }
 
     override fun getCount(): Int {
-        return CustomPagerEnum.values().size
+        return data.categoryList.size
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -29,8 +55,7 @@ class CustomPagerAdapter(private val mContext: Context) : PagerAdapter() {
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        val customPagerEnum = CustomPagerEnum.values()[position]
-        return mContext.getString(customPagerEnum.titleResId)
+        return data.categoryList[position]
     }
 
 }
