@@ -33,8 +33,8 @@ class CustomPagerAdapter(private val mContext: Context, var data: StickerData) :
 
         rvStickers.layoutManager = GridLayoutManager(mContext, 5, LinearLayoutManager.VERTICAL, false) as RecyclerView.LayoutManager?
 
-//        stickerAdapter.setPathList(loadData(data.categoryList[position]))
-        Log.e("CustomPagerAdapter ", "position $position")
+        stickerAdapter.setPathList(loadData(data.categoryList[position]))
+
         rvStickers.adapter = stickerAdapter;
 
         collection.addView(layout)
@@ -43,7 +43,7 @@ class CustomPagerAdapter(private val mContext: Context, var data: StickerData) :
 
     private fun loadData(folder: String): ArrayList<String> {
         stickerPathUrlArrayList.clear()
-        Log.e("CustomPagerAdapter:", folder)
+
         for (index in 0..18) {
             stickerPathUrlArrayList.add("stickers/$folder/$index.png")
         }

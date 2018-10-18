@@ -27,8 +27,6 @@ class StickerAdapter(val context: Context,
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.e("HUUHOANG", "categories: ${stickerPathUrlArrays[position]}")
-
         try {
             val img: InputStream = context.getAssets().open(stickerPathUrlArrays[position])
 //
