@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         tabs.addTab(tabs.newTab().setText("222"))
         tabs.addTab(tabs.newTab().setText("333"))
         tabs.addTab(tabs.newTab().setIcon(R.drawable.e6))
-//        tabs.setupWithViewPager(viewPager)
+        tabs.setupWithViewPager(viewPager)
     }
 
 }
