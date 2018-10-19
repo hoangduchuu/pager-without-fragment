@@ -30,16 +30,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCategories(): StickerData {
-        cateList.add("biscuit")
-        cateList.add("doraemon")
-        cateList.add("helloKitty")
-        cateList.add("meep")
-        cateList.add("pikachu")
-        cateList.add("pusheen")
-        cateList.add("snoopyAtWork")
-        cateList.add("xMyMelody")
+        var folderName = ArrayList<String>()
 
-        return StickerData(cateList)
+
+        val res = resources //if you are in an activity
+        val am = res.assets
+        val folders = am.list("stickers/")
+        for (i in folders.indices) {
+            folderName.add("${folders[i]}")
+        }
+
+
+        return StickerData(folderName)
     }
 
 }
