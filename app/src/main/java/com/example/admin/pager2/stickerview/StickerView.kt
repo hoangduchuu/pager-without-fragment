@@ -10,52 +10,60 @@ import com.example.admin.pager2.StickerAdapter
 import com.example.admin.pager2.exts.inflate
 
 
-class StickerView : LinearLayout{
+class StickerView : LinearLayout {
 
 
     lateinit var mContext: Context
     lateinit var categoryPath: String
 
- var urlList = ArrayList<String>()
+    var urlList = ArrayList<String>()
 
 
     constructor(context: Context) : super(context) {
         mContext = context
-
-        this.initView()
     }
-    constructor(context: Context,categoryPath:String) : super(context) {
+
+    constructor(context: Context, categoryPath: String, pagePosition: Int) : super(context) {
         mContext = context
 
         this.categoryPath = categoryPath
-        urlList = getPatFromFolder(categoryPath)
-        this.initView()
+        urlList = getListUrlStickerFactory(categoryPath, pagePosition)
+        this.initView(pagePosition)
 
     }
 
-    private fun getPatFromFolder(categoryPath:String): ArrayList<String> {
-         var stickerPathList = ArrayList<String>()
+    private fun getListUrlStickerFactory(folderName: String, pagePosition: Int): ArrayList<String> {
+        var stickerPathList: ArrayList<String>
 
+        if (pagePosition == 0) {
+            stickerPathList = getListUrlStickerHistory()
+        } else {
+            stickerPathList = getLtUrlStickerByFolderName(folderName)
+        }
+        return stickerPathList
 
+    }
+
+    private fun getLtUrlStickerByFolderName(folderName: String): ArrayList<String> {
+        var list = ArrayList<String>()
         val res = resources //if you are in an activity
         val am = res.assets
-        val stickerList = am.list("stickers/$categoryPath")
+        val stickerList = am.list("stickers/$folderName")
         for (i in stickerList.indices) {
-            stickerPathList.add("stickers/$categoryPath/${stickerList[i]}")
+            list.add("stickers/$folderName/${stickerList[i]}")
         }
-
-        return stickerPathList
+        return list
     }
 
-    private fun initView() {
-        inflate(com.example.admin.pager2.R.layout.view_list_sticker,true)
+    private fun getListUrlStickerHistory(): ArrayList<String> {
+return arrayListOf("","","")
+    }
 
-
+    private fun initView(pagePosition: Int) {
+        inflate(R.layout.view_list_sticker, true)
         val rvStickers: RecyclerView = this.findViewById(R.id.rvStickers)
-
-
         rvStickers.layoutManager = GridLayoutManager(mContext, 5, LinearLayoutManager.VERTICAL, false) as RecyclerView.LayoutManager?
-        val stickerAdapter =StickerAdapter(mContext,urlList)
+        val stickerAdapter = StickerAdapter(mContext, urlList)
         rvStickers.adapter = stickerAdapter;
 
     }

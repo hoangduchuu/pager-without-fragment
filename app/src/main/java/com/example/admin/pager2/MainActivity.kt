@@ -30,8 +30,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCategories(): StickerData {
-        var folderName = ArrayList<String>()
 
+        var folderName = ArrayList<String>()
+        /**
+         * the history categori
+         */
+        folderName.add("histories")
 
         val res = resources //if you are in an activity
         val am = res.assets
@@ -39,8 +43,6 @@ class MainActivity : AppCompatActivity() {
         for (i in folders.indices) {
             folderName.add("${folders[i]}")
         }
-
-
         return StickerData(folderName)
     }
 

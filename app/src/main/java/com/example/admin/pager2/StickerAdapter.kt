@@ -41,10 +41,6 @@ class StickerAdapter(val context: Context,
 
     }
 
-    fun setPathList(stickerList: ArrayList<String>) {
-        this.stickerPathUrlArrays = stickerList
-        notifyDataSetChanged()
-    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivSticker = view.ivSticker

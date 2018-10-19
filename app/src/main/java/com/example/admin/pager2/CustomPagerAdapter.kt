@@ -16,45 +16,12 @@ import com.example.admin.pager2.stickerview.StickerView
 
 class CustomPagerAdapter(private val mContext: Context, var data: StickerData) : PagerAdapter() {
 
-    lateinit var cloneView2: ImageView
-    private var stickerPathUrlArrayList = ArrayList<String>()
-
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
-
-
-
-        val stickerView = StickerView(mContext,data.categoryList[position])
-
-
-//        val customPagerEnum = CustomPagerEnum.values()[position]
-//        val inflater = LayoutInflater.from(mContext)
-//        val layout = inflater.inflate(customPagerEnum.layoutResId, collection, false) as ViewGroup
-//        collection.addView(layout)
-//        return layout
-
-
-        stickerPathUrlArrayList.clear()
-        cloneView2 = ImageView(mContext)
-        cloneView2.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT) as ViewGroup.LayoutParams?
-        cloneView2.setImageResource(R.mipmap.ic_launcher)
-        val inflater = LayoutInflater.from(mContext)
-
-
-        val layout = inflater.inflate(R.layout.view_list_sticker, collection, false) as ViewGroup
-
-
+        val stickerView = StickerView(mContext,data.categoryList[position], position)
         collection.addView(stickerView)
         return stickerView
     }
 
-    private fun loadData(folder: String): ArrayList<String> {
-        stickerPathUrlArrayList.clear()
-
-        for (index in 0..18) {
-            stickerPathUrlArrayList.add("stickers/$folder/$index.png")
-        }
-        return stickerPathUrlArrayList
-    }
 
     override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
         collection.removeView(view as View)
