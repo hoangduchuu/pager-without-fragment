@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.admin.pager2.stickerview.StickerData
+import com.example.admin.pager2.stickerview.StickerView
 
 class CustomPagerAdapter(private val mContext: Context, var data: StickerData) : PagerAdapter() {
 
@@ -19,6 +20,19 @@ class CustomPagerAdapter(private val mContext: Context, var data: StickerData) :
     private var stickerPathUrlArrayList = ArrayList<String>()
 
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
+
+
+
+        val stickerView = StickerView(mContext,data.categoryList[position])
+
+
+//        val customPagerEnum = CustomPagerEnum.values()[position]
+//        val inflater = LayoutInflater.from(mContext)
+//        val layout = inflater.inflate(customPagerEnum.layoutResId, collection, false) as ViewGroup
+//        collection.addView(layout)
+//        return layout
+
+
         stickerPathUrlArrayList.clear()
         cloneView2 = ImageView(mContext)
         cloneView2.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT) as ViewGroup.LayoutParams?
@@ -27,18 +41,10 @@ class CustomPagerAdapter(private val mContext: Context, var data: StickerData) :
 
 
         val layout = inflater.inflate(R.layout.view_list_sticker, collection, false) as ViewGroup
-        val stickerAdapter = StickerAdapter(mContext, stickerPathUrlArrayList)
-        val rvStickers: RecyclerView = layout.findViewById(R.id.rvStickers)
 
 
-        rvStickers.layoutManager = GridLayoutManager(mContext, 5, LinearLayoutManager.VERTICAL, false) as RecyclerView.LayoutManager?
-
-        stickerAdapter.setPathList(loadData(data.categoryList[position]))
-
-        rvStickers.adapter = stickerAdapter;
-
-        collection.addView(layout)
-        return layout
+        collection.addView(stickerView)
+        return stickerView
     }
 
     private fun loadData(folder: String): ArrayList<String> {
